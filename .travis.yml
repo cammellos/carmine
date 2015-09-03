@@ -1,0 +1,8 @@
+language: clojure
+sudo: false
+cache:
+  directories:
+    - disque
+before_install:
+  - $PWD/scripts/run_disque
+script: lein with-profile dev:1.7:1.6 test

@@ -82,6 +82,7 @@
          bytestring-req# (mapv protocol/coerce-bs request#)
 
          cluster-keyslot#
+
          (if-not (get-in conn# [:spec :cluster])
            request#
            (let [cluster-key-idx# ~cluster-key-idx

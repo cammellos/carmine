@@ -22,13 +22,7 @@
 
     (println
      {:wcar (bench* (wcar {} "Do nothing"))
-      :ping (bench* (wcar {} (car/ping)))
-      :set  (bench* (wcar {} (car/set bench-key bench-data)))
-      :get  (bench* (wcar {} (car/get bench-key)))
-      :roundtrip (bench* (wcar {} (car/ping)
-                                  (car/set bench-key bench-data)
-                                  (car/get bench-key)))
-      :ping-pipelined (bench* (wcar {} (dorun (repeatedly 100 car/ping))))}))
+      :ping (bench* (wcar {} (car/ping)))}))
 
   (println)
   (println "Done! (Time for cake?)")
