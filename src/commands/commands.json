@@ -30,12 +30,24 @@
         "optional": true
       }
     ],
-    "since": "1.0.0",
+    "since": "alpha",
     "group": "server"
   },
   "HELLO": {
     "summary": "Returns hello format version, this node ID, all the nodes IDs, IP addresses, ports, and priority",
-    "since": "1.0.0",
+    "since": "alpha",
+    "group": "server"
+  },
+  "ACKJOB": {
+    "summary": "Acknowledge a job",
+    "arguments": [
+      {
+        "name": "id",
+        "type": "string",
+        "multiple": true
+      }
+    ],
+    "since": "alpha",
     "group": "server"
   },
   "GETJOB": {
@@ -54,7 +66,7 @@
       "multiple": true
       }
     ],
-    "since": "1.0.0",
+    "since": "alpha",
     "group": "server"
   },
   "ADDJOB": {
