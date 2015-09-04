@@ -10,7 +10,7 @@
   (testing "addjob"
     (testing "accepts a REPLICATE option"
       (let [
-            id (helpers/dq1 (car/addjob "testq" "job1" 5000 "REPLICATE" 1))
+            id (helpers/dq1 (car/addjob "testq" "addjob-replicate" 5000 "REPLICATE" 1))
             job-info (apply hash-map (helpers/dq1 (car/show id)))] 
         (is (string? id) "returns an id string")
         (is (not-empty id) "returns an non-empty id")
@@ -21,18 +21,18 @@
   (testing "addjob"
     (testing "accepts a DELAY option"
       (let [
-            id (helpers/dq1 (car/addjob "testq" "job1" 5000 "DELAY" 20000))
+            id (helpers/dq1 (car/addjob "testq" "addjob-delay" 5000 "DELAY" 1))
             job-info (apply hash-map (helpers/dq1 (car/show id)))] 
         (is (string? id) "returns an id string")
         (is (not-empty id) "returns an non-empty id")
         (is (= 3 (count (get job-info "nodes-delivered"))) "replicates to multiple nodes")
         (is (= "active" (get job-info "state")) "does not queue the job")))))
 
-(deftest addjob-delay
+(deftest addjob-ttl
   (testing "addjob"
     (testing "accepts a TTL option"
       (let [
-            id (helpers/dq1 (car/addjob "testq" "job1" 5000 "TTL" 10))
+            id (helpers/dq1 (car/addjob "testq" "addjob-ttl" 5000 "TTL" 1))
             job-info (apply hash-map (helpers/dq1 (car/show id)))] 
         (is (string? id) "returns an id string")
         (is (not-empty id) "returns an non-empty id")
@@ -43,7 +43,7 @@
   (testing "addjob"
     (testing "accepts an ASYNC option"
       (let [
-            id (helpers/dq1 (car/addjob "testq" "job1" 5000 "ASYNC"))
+            id (helpers/dq1 (car/addjob "testq" "addjob-async" 5000 "ASYNC"))
             job-info (apply hash-map (helpers/dq1 (car/show id)))] 
         (is (string? id) "returns an id string")
         (is (not-empty id) "returns an non-empty id")
@@ -54,11 +54,11 @@
   (testing "addjob"
     (testing "accepts an MAXLEN option"
       (let [
-            id (helpers/dq1 (car/addjob "testq" "job1" 5000 "MAXLEN" 1))
-            id2 (helpers/dq1 (car/addjob "testq" "job1" 5000 "MAXLEN" 1)) ; Currently there's a bug on disque
+            id (helpers/dq1 (car/addjob "testq" "addjob-maxlen1" 5000 "MAXLEN" 1))
+            id2 (helpers/dq1 (car/addjob "testq" "addjob-maxlen2" 5000 "MAXLEN" 1)) ; Currently there's a bug on disque
             job-info (apply hash-map (helpers/dq1 (car/show id)))] 
         (is (string? id) "returns an id string")
         (is (not-empty id) "returns an non-empty id")
         (is (= 3 (count (get job-info "nodes-delivered"))) "replicates to multiple nodes")
         (is (= "queued" (get job-info "state")) "queues the job")
-        (is (thrown? clojure.lang.ExceptionInfo (helpers/dq1 (car/addjob "testq" "job1" 5000 "MAXLEN" 1))))))))
+        (is (thrown? clojure.lang.ExceptionInfo (helpers/dq1 (car/addjob "testq" "addjob-maxlen3" 5000 "MAXLEN" 1))))))))
